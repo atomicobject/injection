@@ -1,0 +1,117 @@
+== DESCRIPTION:
+
+Injection is a simple dependency injection plugin for rails. It allows you to inject objects into your controllers and observers which have been described in a yaml file (config/objects.yml).
+
+injection
+
+* http://rubyforge.org/projects/atomicobjectrb/
+* http://atomicobjectrb.rubyforge.org/injection
+
+== FEATURES/PROBLEMS:
+  
+* Declarative dependency injection that automatically instantiants ivars via the objects.yml file
+
+== SYNOPSIS:
+ To specify objects to be injected from the DIY context into your controller or observer
+ use the inject class method:
+
+   inject :one_component, :another
+
+=== Example
+
+ This example defines a context with two objects, _foo_ and _bar_, which 
+ are injected into every instance of the WidgetController or WidgetObserver.  The objects 
+ are available as instance variables within the controller and observer.
+ 
+ config/objects.yml:
+   ---
+   foo:
+   bar:
+ 
+ lib/foo.rb:
+   class Foo
+     ...
+   end
+ 
+ lib/bar.rb:
+   class Bar
+     ...
+   end
+ 
+ app/controllers/widget_controller.rb:
+   class WidgetController < ApplicationController
+     inject :foo, :bar
+ 
+     def index
+       render :text => "{@foo.inspect} {@bar.inspect}"
+     end
+   end
+  
+ app/models/widget_observer.rb:
+   class WidgetObserver < ActiveRecord::Observer
+     inject :foo, :bar
+     
+     before :save do |widget|
+      @foo.bar(widget)
+      @bar.foo(widget)
+     end
+   end 
+ 
+=== Declarative Observations
+ 
+ Observations on an active record object can be specified in a declarative way using
+ the before and after class methods. The methods are invoked with a
+ symbol which specifies what kind of event the observer is interested in, and a block 
+ that defines what actions it will perform.
+ 
+   class WidgetObserver < ActiveRecord::Observer
+     before :update do |record|
+       ...
+     end
+ 
+     after :create do |record|
+       ...
+     end
+ 
+     after :validation, :on => :create do |record|
+       ...
+     end
+ 
+     before :validation, :on => [:create, :update] do |record|
+       ...
+     end
+   end
+ 
+== REQUIREMENTS:
+
+* Constructor
+* DIY
+
+== INSTALL:
+
+* script/plugin install svn://rubyforge.org/var/svn/atomicobjectrb/injection/tags/injection
+
+== LICENSE:
+
+(The MIT License)
+
+Copyright (c) 2007 Atomic Object
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
