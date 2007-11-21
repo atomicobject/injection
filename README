@@ -89,7 +89,7 @@ injection
 
 == INSTALL:
 
-* script/plugin install svn://rubyforge.org/var/svn/atomicobjectrb/injection/tags/injection
+* script/plugin install svn://rubyforge.org/var/svn/atomicobjectrb/tags/injection/injection
 
 == LICENSE:
 
