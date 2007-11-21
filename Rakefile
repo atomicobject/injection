@@ -25,6 +25,7 @@ desc "Generate and upload api docs to rubyforge"
 task :upload_doc => :rerdoc do
   user = ENV['user'] || "alles"
 	sh "scp -r doc/* #{user}@rubyforge.org:/var/www/gforge-projects/injection/doc/"
+	sh "rm -rf doc"
 end
 
 desc "Release from current trunk"
