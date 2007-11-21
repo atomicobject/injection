@@ -45,8 +45,8 @@ task :release => :upload_doc do
 		raise "Please clean up before releasing.\n#{status}" unless status == ""
 
 		sh "svn cp . svn+ssh://#{user}@rubyforge.org/var/svn/atomicobjectrb/tags/injection/rel-#{version} -m 'Releasing version #{version}'"
-		sh "svn del svn+ssh://#{user}@rubyforge.org/var/svn/atomicobjectrb/tags/injection/injection -m 'Preparing to update stable release tag'"
-		sh "svn cp . svn+ssh://#{user}@rubyforge.org/var/svn/atomicobjectrb/tags/injection/injection -m 'Updating stable tag to version #{version}'"
+		sh "svn del svn+ssh://#{user}@rubyforge.org/var/svn/atomicobjectrb/tags/injection-#{version} -m 'Preparing to update stable release tag'"
+		sh "svn cp . svn+ssh://#{user}@rubyforge.org/var/svn/atomicobjectrb/tags/injection-#{version} -m 'Updating stable tag to version #{version}'"
 
 		rm_rf 'release'
 		mkdir 'release'
