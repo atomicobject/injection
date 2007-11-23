@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <title><%= @title %></title>
+  </head>
+  <style>
+  #rails_plugin_installation {
+    padding: 5px;
+    margin-bottom: 10px;
+    font: bold 10pt "Courier New", courier, serif
+  }
+  .code_sample_title {
+    border-top: 1px solid grey;
+    width: 625px;
+    font: bold 12pt Trebuchet MS;
+    text-align:left;
+    margin: 5px;
+    padding-top: 5px;
+  }
+
+  </style>
+
+  <body>
+
+    <div align="center">
+
+      <%= @header_html  %>
+
+      <div id="rails_plugin_installation"><%= @plugin_install %></div>
+
+      
+      <div class="code_sample">
+        <div class="code_sample_title">
+          Use:
+        </div>
+        <a href="rdoc/index.html"><img border="0" src="coconut.png"></a>
+      </div>
+      
+      <div class="code_sample">
+        <div class="code_sample_title">
+          Test:
+        </div>
+        <a href="rdoc/index.html"><img border="0" src="coconut_test.png"></a>
+      </div>
+
+    </div>
+
+
+
+  </body>
+</html>

@@ -26,6 +26,12 @@ task :upload_doc => :rerdoc do
   user = ENV['user'] || "alles"
 	sh "scp -r doc/* #{user}@rubyforge.org:/var/www/gforge-projects/atomicobjectrb/injection/doc/"
 	sh "rm -rf doc"
+
+  temp = "homepage_send"
+  rm_rf temp
+  cp ["homepage/index.html", "homepage/page_header.png", "homepage/coconut.png", "homepage/cocunut_test.png" ], temp
+	sh "scp -r #{temp}/* #{user}@rubyforge.org:/var/www/gforge-projects/atomicobjectrb/injection/"
+	rm_rf temp
 end
 
 desc "Release from current trunk"
