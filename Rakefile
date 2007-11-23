@@ -21,7 +21,7 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-desc "Generate and upload api docs to rubyforge"
+desc "Generate and upload api homepage and docs to rubyforge"
 task :upload_doc => :rerdoc do
   user = ENV['user'] || "alles"
 	sh "scp -r doc/* #{user}@rubyforge.org:/var/www/gforge-projects/atomicobjectrb/injection/doc/"
@@ -29,7 +29,8 @@ task :upload_doc => :rerdoc do
 
   temp = "homepage_send"
   rm_rf temp
-  cp ["homepage/index.html", "homepage/page_header.png", "homepage/coconut.png", "homepage/cocunut_test.png" ], temp
+  mkdir temp
+  cp ["homepage/index.html", "homepage/page_header.png", "homepage/coconut.png", "homepage/coconut_test.png" ], temp
 	sh "scp -r #{temp}/* #{user}@rubyforge.org:/var/www/gforge-projects/atomicobjectrb/injection/"
 	rm_rf temp
 end
