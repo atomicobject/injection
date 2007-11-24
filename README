@@ -9,7 +9,7 @@ injection
 
 == FEATURES/PROBLEMS:
   
-* Declarative dependency injection that automatically instantiants ivars via the objects.yml file
+* Declarative dependency injection that automatically instantiates ivars via the objects.yml file
 
 == SYNOPSIS:
  To specify objects to be injected from the DIY context into your controller or observer
