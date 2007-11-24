@@ -23,7 +23,7 @@ class BananaObserverTest < Test::Unit::TestCase
   end
 
   def test_before_create
-    @monkey_expects.peels(@banana)
+    @monkey.expects(:peels).with(@banana)
     @target.update(:before_create, @banana)
   end
 end
