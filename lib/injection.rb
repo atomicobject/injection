@@ -29,6 +29,9 @@ module Injection
 
 	# Initializes the context from the definition stored in the given file.
 	def self.init_context(context_file)
+	  # Let Rails do the auto loading
+	  DIY::Context.auto_require = false
+	  
 		if File.exists?(context_file)
    	  @context_file = context_file
    	  reset_context
