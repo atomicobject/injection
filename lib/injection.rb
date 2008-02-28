@@ -30,12 +30,17 @@ module Injection
 	# Initializes the context from the definition stored in the given file.
 	def self.init_context(context_file)
 		if File.exists?(context_file)
-			the_context = DIY::Context.from_file(context_file)
-			self.context = the_context
+   	  @context_file = context_file
+   	  reset_context
 		else
 			self.context = {}
 		end
 	end
+	
+	def self.reset_context
+    raise "Injection.reset_context cannot be called until AFTER init_context" unless @context_file
+		self.context = DIY::Context.from_file(@context_file)
+  end
 
 	protected
 
@@ -44,3 +49,14 @@ module Injection
 		@@context = new_context
 	end
 end
+
+Dependencies.class_eval do
+  class <<self
+    def clear_with_clear_injection
+      Injection.reset_context
+      clear_without_clear_injection
+    end
+    alias_method_chain :clear, :clear_injection
+  end
+end
+
