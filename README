@@ -4,8 +4,7 @@ Injection is a simple dependency injection plugin for rails. It allows you to in
 
 injection
 
-* http://rubyforge.org/projects/atomicobjectrb/
-* http://atomicobjectrb.rubyforge.org/injection
+* https://github.com/atomicobject/injection
 
 == FEATURES/PROBLEMS:
   
@@ -73,29 +72,29 @@ injection
        ...
      end
  
-     after :validation, :on => :create do |record|
+     after :validation do |record|
        ...
      end
  
-     before :validation, :on => [:create, :update] do |record|
+     before :validation do |record|
        ...
      end
    end
  
 == REQUIREMENTS:
 
-* Constructor
-* DIY
+* constructor
+* diy
 
 == INSTALL:
 
-* script/plugin install svn://rubyforge.org/var/svn/atomicobjectrb/tags/injection/injection
+* gem install injection
 
 == LICENSE:
 
 (The MIT License)
 
-Copyright (c) 2007 Atomic Object
+Copyright (c) 2007-2010 Atomic Object
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

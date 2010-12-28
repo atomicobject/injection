@@ -1,0 +1,20 @@
+---
+foo:
+  class: TheFooClass
+  lib: class_inject_classes
+  compose: foo_piece_one, foo_piece_two
+
+bar:
+  lib: class_inject_classes
+
+foo_piece_one:
+  lib: class_inject_classes
+
+foo_piece_two:
+  lib: class_inject_classes
+
+my_object:
+  lib: observer_inject_classes
+
+another_object:
+  lib: observer_inject_classes
