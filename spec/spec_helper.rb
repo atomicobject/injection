@@ -23,7 +23,8 @@ module Helpers
   end
     
   def set_context(path)
-    Injection.init_context path
+    Injection.context_file = path
+    Injection.reset_context
   end
 end
 

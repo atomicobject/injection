@@ -22,35 +22,24 @@ require 'injection/observer_inject'
 #   Inject.context[:foo]   #=> #<Foo:0x81eb0>
 #
 module Injection
+  @@context = {}
+  @@extra_inputs = {}
 
   # Accessor for the context loaded from <tt>config/objects.yml</tt>
   def self.context
     @@context
   end
-
-  # Initializes the context from the definition stored in the given file.
-  def self.init_context(context_file)
-    # Let Rails do the auto loading
-    DIY::Context.auto_require = false
-    
-    if File.exists?(context_file)
-      @context_file = context_file
-      reset_context
-    else
-      self.context = {}
-    end
+  
+  def self.context_file=(path)
+    @@context_file = path
   end
   
-  def self.reset_context
-    raise "Injection.reset_context cannot be called until AFTER init_context" unless @context_file
-    self.context = DIY::Context.from_file(@context_file)
+  def self.extra_inputs=(hash)
+    @@extra_inputs = hash
   end
 
-  protected
-
-  @@context = {}
-  def self.context=(new_context) #:nodoc:
-    @@context = new_context
+  def self.reset_context
+    @@context = DIY::Context.from_file(@@context_file, @@extra_inputs) if File.exists?(@@context_file)
   end
 end
 

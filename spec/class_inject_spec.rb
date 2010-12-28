@@ -32,29 +32,15 @@ class FutureMilkyWayGalaxyController < MilkyWayGalaxyController;
   constructor
 end
 
-class InjectSetupFixture
-  include Injection
-  attr_reader :saved_args, :called
-  
-  @@saved_keys = []
-  @@called = false
-  
-  def self.saved_keys; @@saved_keys end
-  def self.called; @@called end
-  
-  def self.inject_setup(*keys)
-    @@saved_keys = keys
-    @@called = true
-  end
-  
-  def inject_setup(*args)
-    @saved_args = args
-    @called = true
-  end
+class CommercialController < ActionController::Base
+  inject :old, :readers => true
 end
 
-
 describe 'class inject' do
+  before do
+    # Instantiate a controller to kick start Rails into loading Injection
+    InjectedController.new 
+  end
   
   it "does not mess up construction of a normal controller" do
     controller = NormalController.new
@@ -154,22 +140,8 @@ describe 'class inject' do
     injected_controller.bar.should == "bar"
     injected_controller.foo_piece_two.should == "foo2"
   end
-  
-  # it "calls inject_setup on instance and class level" do
-  #   InjectSetupFixture.saved_keys.should == []
-  #   InjectSetupFixture.called.should be_false
-  # 
-  #   InjectSetupFixture.inject :foo
-  #   InjectSetupFixture.saved_keys.should == [:foo]
-  #   InjectSetupFixture.called.should be_true
-  #   
-  #   instance = InjectSetupFixture.new(:foo => "bar")
-  #   instance.saved_args.should == [{:foo => "bar"}]
-  #   instance.called.should be_true
-  # end
-  
+
   it "resets the context to having no built components" do
-  
     ic = InjectedController.new 
     ic.foo.should eql(Injection.context['foo'])
     ic.bar.should eql(Injection.context['bar'])
@@ -193,15 +165,13 @@ describe 'class inject' do
     ic3.foo.foo_piece_one.should == "Mock Foo Piece One"
   end
   
-  it "raises if init context has not been called when trying to reset context" do
-    # This is horrible, but only way to ensure that the context is not initalized already from
-    # a previous test
-    Injection.class_eval do 
-      @context_file = nil
-      @@context = nil
-    end
-    
-    lambda { Injection.reset_context }.should raise_error(/init_context/i)  
+  it 'allows extra inputs to be provided when context is reset' do
+    lambda { injection_context[:old] }.should raise_error(/failed/i)
+    Injection.extra_inputs = {:old => 'spice'}
+    Injection.reset_context
+    injection_context[:old].should == 'spice'
+
+    CommercialController.new.old.should == 'spice'
   end
    
   it "does not reset context after ActionDispatch::Callbacks" do

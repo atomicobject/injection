@@ -25,7 +25,12 @@ module Injection
       # list of <tt>keys</tt> to look them up from the DI context.
       #
       def inject(*keys)
-        constructor(*(keys + [:super => []]))
+        constructor_args = if keys.last.is_a?(Hash)
+          keys[0..-2] + [{:super => []}.merge(keys.last)]
+        else
+          keys + [:super => []]
+        end
+        constructor *constructor_args
         include Initialize
       end
     end

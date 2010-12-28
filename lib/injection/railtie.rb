@@ -2,11 +2,19 @@ require 'rails'
 
 module Injection
   class Railtie < ::Rails::Railtie
-    initializer "injection.initialize_context" do |app|
-      Injection.init_context(::Rails.root.to_s + '/config/objects.yml')
+    config.before_configuration do
+      Injection.context_file = ::Rails.root.to_s + '/config/objects.yml'
     end
     
-    # Clear the injection context after each request
+    config.after_initialize do
+      # Let Rails do the auto loading
+      DIY::Context.auto_require = false
+      
+      # Reload the context from the file
+      Injection.reset_context
+    end
+    
+    # Reload the context after each request in development
     initializer "injection.clear_context", :before => :set_clear_dependencies_hook do |app|
       unless app.config.cache_classes
         ::ActionDispatch::Callbacks.after do
