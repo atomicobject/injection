@@ -1,10 +1,10 @@
 == DESCRIPTION:
 
-Injection is a simple dependency injection plugin for rails. It allows you to inject objects into your controllers and observers which have been described in a yaml file (config/objects.yml).
-
-injection
+Injection is a simple dependency injection plugin for rails3. It allows you to inject objects into your controllers and observers which have been described in a yaml file (config/objects.yml).
 
 * https://github.com/atomicobject/injection
+
+(for the rails2 plugin install from the rails_2_plugin tag of this repository)
 
 == FEATURES/PROBLEMS:
   
