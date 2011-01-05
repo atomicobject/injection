@@ -1,16 +1,16 @@
-== DESCRIPTION:
+== Description
 
-Injection is a simple dependency injection plugin for rails3. It allows you to inject objects into your controllers and observers which have been described in a yaml file (config/objects.yml).
+Injection is a simple dependency injection plugin for Rails 3. It allows you to inject objects into your controllers and observers which have been described in a yaml file (config/objects.yml).
 
-* https://github.com/atomicobject/injection
+* http://github.com/atomicobject/injection
 
-(for the rails2 plugin install from the rails_2_plugin tag of this repository)
+(for the Rails 2 plugin install from the rails_2_plugin tag of this repository)
 
-== FEATURES/PROBLEMS:
+== Features
   
 * Declarative dependency injection that automatically instantiates ivars via the objects.yml file
 
-== SYNOPSIS:
+== Synopsis
  To specify objects to be injected from the DIY context into your controller or observer
  use the inject class method:
 
@@ -58,7 +58,7 @@ Injection is a simple dependency injection plugin for rails3. It allows you to i
  
 === Declarative Observations
  
- Observations on an active record object can be specified in a declarative way using
+ Observations on an Active Record object can be specified in a declarative way using
  the before and after class methods. The methods are invoked with a
  symbol which specifies what kind of event the observer is interested in, and a block 
  that defines what actions it will perform.
@@ -81,20 +81,20 @@ Injection is a simple dependency injection plugin for rails3. It allows you to i
      end
    end
  
-== REQUIREMENTS:
+== Requirements
 
-* constructor
-* diy
+* constructor[http://rubygems.org/gems/constructor]
+* diy[http://rubygems.org/gems/diy]
 
-== INSTALL:
+== Install
 
 * gem install injection
 
-== LICENSE:
+== License
 
 (The MIT License)
 
-Copyright (c) 2007-2010 Atomic Object
+Copyright (c) 2007-2011 Atomic Object
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
