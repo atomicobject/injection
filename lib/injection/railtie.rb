@@ -6,7 +6,7 @@ module Injection
       Injection.context_file = ::Rails.root.to_s + '/config/objects.yml'
     end
     
-    config.after_initialize do
+    config.before_initialize do
       # Let Rails do the auto loading
       DIY::Context.auto_require = false
       

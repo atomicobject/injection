@@ -1,0 +1,1 @@
+MY_OBJECT = Injection.context['my_object']
