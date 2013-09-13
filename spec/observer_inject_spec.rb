@@ -96,7 +96,7 @@ describe Injection::ObserverExtension do
   end
   
   it "runs its own example" do
-    monkey = mock(:monkey)
+    monkey = double(:monkey)
     target = BananaObserver.send(:new, :monkey => monkey)
     banana = Banana.new
 
